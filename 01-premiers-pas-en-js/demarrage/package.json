@@ -1,0 +1,24 @@
+{
+  "name": "demarrage",
+  "version": "1.0.0",
+  "description": "no description",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uNouss/cours-javascript.git"
+  },
+  "author": "sowy",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/uNouss/cours-javascript/issues"
+  },
+  "homepage": "https://github.com/uNouss/cours-javascript#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1"
+  }
+}

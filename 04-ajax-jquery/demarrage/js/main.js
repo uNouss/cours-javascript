@@ -1,6 +1,7 @@
 // @flow
+import $ from 'jquery';
+
 import HomePage from './HomePage.js';
-import data from './data.js';
 import PageRenderer from './PageRenderer.js';
 import AddPizzaPage from './AddPizzaPage.js';
 
@@ -9,8 +10,7 @@ PageRenderer.contentElement = document.querySelector('.pizzasContainer');
 
 const homePage:HomePage = new HomePage([]);
 PageRenderer.renderPage( homePage ); // page vide
-homePage.data = data;
-PageRenderer.renderPage( homePage ); // liste des vidéos
+
 
 // A.2.1. querySelector
 // console.log( document.querySelector('.navbar-brand img') );
@@ -70,3 +70,55 @@ if (addPizzaLink) {
 		renderAddPizza();
 	})
 }
+
+
+
+// console.log(1);
+
+function displayNews(html:string):void {
+	const newsContainer:?HTMLElement = document.querySelector('.newsContainer');
+	if (newsContainer) {
+		newsContainer.innerHTML = html;
+	}
+}
+
+function renderHome(data:?JSON):void {
+	if (data) {
+		homePage.data = data;
+	}
+	PageRenderer.renderPage(homePage);
+	$('.pizzasContainer').removeClass('is-loading');
+}
+
+fetch('./news.html')
+	.then( (response:Response) => response.text() )
+	.then( displayNews );
+//console.log(2);
+
+
+$('.pizzasContainer').addClass('is-loading');
+
+fetch('http://localhost:8080/api/v1/pizzas')
+  .then((response:Response) => response.json() )
+  .then( renderHome );
+
+
+// console.log( $('a.navbar-brand') );
+// $('a').html("jQuery forever");
+// console.log( $('a.navbar-brand').html() );
+
+
+$('a.navbar-brand img').on('click', function(event) {
+	event.preventDefault();
+	PageRenderer.renderPage( homePage );
+});
+
+$('.pizzaListButton').on('click', function(event) {
+	event.preventDefault();
+	PageRenderer.renderPage( homePage );
+});
+
+$('article.media img').click(function (event) {
+	event.preventDefault();
+	console.log("salut");
+});

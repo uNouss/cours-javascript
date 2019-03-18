@@ -89,7 +89,26 @@ export default class AddPizzaPage extends Page {
 		}
 		else {
 			// si il n'y a pas d'erreur, on affiche un message de succès
-			alert(`Pizza "${values.nom}" enregistrée avec succès !`);
+			console.log(`Pizza "${values.nom}" enregistrée avec succès !`);
+			// si il n'y a pas d'erreur, on appelle le webservice post /api/v1/pizzas avec les valeurs saisie
+
+			let pizza = {
+				"nom":`${values.nom}`,
+				"base":`${values.base}`,
+				"prix_petite": parseFloat(values.prix_petite),
+				"prix_grande": parseFloat(values.prix_grande),
+				"ingredients": values.ingredients
+			};
+
+			console.log( JSON.stringify(pizza ));
+
+			fetch('http://localhost:8080/api/v1/pizzas', {
+				method: 'POST',
+				headers: {'Content-Type': 'application/json'},
+				body: JSON.stringify(pizza)
+			})
+			.then((response:Response) => response.json())
+				.then((responseJson:JSON) => console.log(responseJson));
 			// puis on vide le formulaire
 			const form:?HTMLElement = document.querySelector('form.addPizzaPage');
 			if (form && form instanceof HTMLFormElement) {
